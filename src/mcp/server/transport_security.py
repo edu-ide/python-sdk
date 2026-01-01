@@ -92,12 +92,13 @@ class TransportSecurityMiddleware:
             logger.warning("Missing Content-Type header in POST request")
             return False
 
-        # Content-Type must start with application/json
-        if not content_type.lower().startswith("application/json"):
-            logger.warning(f"Invalid Content-Type header: {content_type}")
-            return False
-
-        return True
+        # Content-Type must start with application/json or application/octet-stream (ChatGPT SDK)
+        ct_lower = content_type.lower()
+        if ct_lower.startswith("application/json") or ct_lower.startswith("application/octet-stream"):
+            return True
+        
+        logger.warning(f"Invalid Content-Type header: {content_type}")
+        return False
 
     async def validate_request(self, request: Request, is_post: bool = False) -> Response | None:
         """Validate request headers for DNS rebinding protection.
