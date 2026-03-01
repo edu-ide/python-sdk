@@ -1,0 +1,23 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+package(default_visibility = ["//visibility:public"])
+
+py_library(
+    name = "mcp",
+    srcs = glob(["src/**/*.py"]),
+    imports = ["src"],
+    deps = [
+        "@sajug_pip//anyio:pkg",
+        "@sajug_pip//httpx:pkg",
+        "@sajug_pip//httpx_sse:pkg",
+        "@sajug_pip//pydantic:pkg",
+        "@sajug_pip//pydantic_settings:pkg",
+        "@sajug_pip//python_multipart:pkg",
+        "@sajug_pip//sse_starlette:pkg",
+        "@sajug_pip//starlette:pkg",
+        "@sajug_pip//uvicorn:pkg",
+        "@sajug_pip//jsonschema:pkg",
+        "@sajug_pip//pyjwt:pkg",
+        "@sajug_pip//typing_extensions:pkg",
+    ],
+)
